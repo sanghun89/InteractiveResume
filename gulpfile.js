@@ -138,7 +138,6 @@ gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction']);
 
 // Composed tasks
 // --------------------------------------------------------------
-
 gulp.task('build', function () {
     if (process.env.NODE_ENV === 'production') {
         runSeq(['buildJSProduction', 'buildCSSProduction']);
