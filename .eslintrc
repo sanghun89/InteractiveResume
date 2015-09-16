@@ -39,7 +39,9 @@
     "_": 1,
     "inject": 1,
     "expect": 1,
-    "sinon": 1
+    "sinon": 1,
+    "THREE": 1,
+    "Physijs": 1
   },
 
   "rules": {
