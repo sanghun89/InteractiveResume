@@ -1,17 +1,23 @@
-app.factory('Scene', (WorldConstants, Renderer, Planes, Camera, Lights, Props) => ({
+app.factory('Scene', (WorldConstants, Renderer, Planes, Camera, Lights, Props, Ball, BallActions) => ({
     initScene(element) {
-        let renderer, scene, camera, lights, planes, controls, props;
+        let renderer, scene, gravityVector, camera, lights, planes, controls, props, ball_pieces;
         //renderer, scene, camera, cameraControls, domElement, gravityVector, controls;
         //var clock = new THREE.Clock();
 
         renderer = Renderer.makeRenderer(element);
         scene = new Physijs.Scene;
 
+        gravityVector = new THREE.Vector3( 0, WorldConstants.GRAVITY_Y, 0 );
+        BallActions.gravityVector = gravityVector;
+
+        scene.setGravity(gravityVector);
+
         camera = Camera.makeCamera();
         camera.position.set(0, WorldConstants.CAMERA_GAP, WorldConstants.CAMERA_OFFSET_Z);
         camera.up.set(0, 1, 0);
 
         let camTarget = new THREE.Vector3(0, 0, 0);
+
         camera.lookAt(camTarget);
 
         scene.add(camera);
@@ -35,6 +41,14 @@ app.factory('Scene', (WorldConstants, Renderer, Planes, Camera, Lights, Props) =
             }
         });
 
+        // the ball
+        ball_pieces = Ball.gather();
+        _.forEach(ball_pieces, (ball_piece) => {
+            if (ball_piece) {
+                scene.add(ball_piece);
+            }
+        });
+
         // lights
         lights = Lights.gather();
 
@@ -44,29 +58,39 @@ app.factory('Scene', (WorldConstants, Renderer, Planes, Camera, Lights, Props) =
             }
         });
 
-        controls = new THREE.OrbitControls(camera);
-        controls.damping = 0.2;
+        /* For Debugging, un-comment */
+        //controls = new THREE.OrbitControls(camera);
+        //controls.damping = 0.2;
 
         function render() {
-            // Getting threejs's inner clock
-            //var delta = clock.getDelta();
-
             renderer.render( scene, camera );
-            //scene.simulate();
         }
 
         function animate() {
-            controls.update();
+            if (controls) {
+                controls.update();
+            }
+            // Getting threejs's inner clock
+            //var delta = clock.getDelta();
+
+            BallActions.update();
             scene.simulate();
-            renderer.render( scene, camera);
+            render();
 
             requestAnimationFrame(animate);
         }
 
-        controls.addEventListener('change', render);
+        if (controls) {
+            controls.addEventListener('change', render);
+        }
+
+        BallActions.scene = scene;
+        BallActions.camera = camera;
 
         render();
         animate();
+
+        BallActions.initActions();
 
         THREE.DefaultLoadingManager.onProgress = function ( item, loaded, total ) {
             console.log( item, loaded, total );
