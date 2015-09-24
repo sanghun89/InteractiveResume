@@ -1,9 +1,16 @@
 <div class="room-identifier">
-    <h3>Room ID: ASDF</h3>
+    <h3>Room ID: {{room._id}}</h3>
+    <a class="step-button" ng-click="goBack()">
+        <three-center>
+            <i class="icon icon-undo"></i>
+            <span class="label-icon">Back</span>
+        </three-center>
+    </a>
+
     <a class="step-button none-button">
         <three-center>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?data=HelloWorld!&size=100x100">
-            <span class="label-icon">QR Code for Room ASDF</span>
+            <img ng-if="qr_code" ng-src="{{qr_code}}">
+            <span class="label-icon">QR Code for<br>Room {{room._id}}</span>
         </three-center>
     </a>
 </div>

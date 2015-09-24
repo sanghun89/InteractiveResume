@@ -1,5 +1,5 @@
 'use strict';
-window.app = angular.module('InteractiveResume', ['ui.router']);
+window.app = angular.module('InteractiveResume', ['ui.router', 'ngAnimate']);
 
 app.config(($urlRouterProvider, $locationProvider) => {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)
