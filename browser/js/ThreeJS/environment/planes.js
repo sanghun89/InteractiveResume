@@ -3,13 +3,13 @@ app.factory('Planes', (WorldConstants) => ({
         /* TODO Defining Materials --------------------------------------------------- */
         this.ground_material = this.ground_material || Physijs.createMaterial(
             new THREE.MeshLambertMaterial({ color : WorldConstants.GROUND_COLOR}),
-            0.8,
-            0.4
+            WorldConstants.DEFAULT_FRICTION,
+            WorldConstants.DEFAULT_RESTITUTION
         );
         this.ground_material_alt = this.ground_material_alt || Physijs.createMaterial(
             new THREE.MeshLambertMaterial({ color : WorldConstants.GROUND_COLOR_ALT}),
-            0.8,
-            0.4
+            WorldConstants.DEFAULT_FRICTION,
+            WorldConstants.DEFAULT_RESTITUTION
         );
     },
     _makePillars() {
@@ -32,6 +32,8 @@ app.factory('Planes', (WorldConstants) => ({
                         0
                     );
 
+                    column.receiveShadow = true;
+
                     column.position.y = WorldConstants.WALL_HEIGHT / 2;
                     column.position[_axis] = _axis === 'x' ? direction * WorldConstants.GROUND_WIDTH : direction * WorldConstants.GROUND_LENGTH;
 
@@ -45,8 +47,8 @@ app.factory('Planes', (WorldConstants) => ({
     _makeBorders() {
         let invisible_wall = Physijs.createMaterial(
             new THREE.MeshLambertMaterial({ color : WorldConstants.GROUND_COLOR, transparent : true, opacity: 0.0 }),
-            0.8,
-            0.4
+            WorldConstants.DEFAULT_FRICTION,
+            WorldConstants.DEFAULT_RESTITUTION
         );
 
         let horizontal_geo = new THREE.BoxGeometry(WorldConstants.GROUND_WIDTH, WorldConstants.WALL_HEIGHT * 2, 1);
@@ -109,7 +111,6 @@ app.factory('Planes', (WorldConstants) => ({
             0
         );
 
-        ground.receiveShadow = true;
         return ground;
     },
     gather() {

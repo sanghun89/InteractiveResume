@@ -1,7 +1,13 @@
 app.config(function ($stateProvider) {
     $stateProvider.state('root.mobile', {
-        url: 'mobile',
         templateUrl: 'js/mobile/mobile.html',
-        controller: 'MainController'
+        controller: 'MobileController'
     });
+});
+
+app.controller('MobileController', ($scope) => {
+    $scope.roomID = null;
+    $scope.connectToRoom = function() {
+
+    };
 });

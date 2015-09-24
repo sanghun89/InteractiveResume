@@ -1,5 +1,5 @@
 'use strict';
-window.app = angular.module('InteractiveResume', ['ui.router', 'ui.bootstrap']);
+window.app = angular.module('InteractiveResume', ['ui.router']);
 
 app.config(($urlRouterProvider, $locationProvider) => {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)
@@ -10,12 +10,4 @@ app.config(($urlRouterProvider, $locationProvider) => {
 
 app.constant('APP_VARS', {
     MOBILE_WIDTH : 786
-});
-
-app.run(($window, APP_VARS, $state)=> {
-    if ($window.innerWidth < APP_VARS) {
-        $state.go('root.mobile');
-    } else {
-        $state.go('root.screen');
-    }
 });

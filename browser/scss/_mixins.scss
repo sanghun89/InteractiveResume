@@ -1,0 +1,22 @@
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin forceHardware() {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+@mixin transition($options:all .2s ease-in-out) {
+  -webkit-transition:$options;
+  -moz-transition:$options;
+  -o-transition:$options;
+  transition:$options;
+}

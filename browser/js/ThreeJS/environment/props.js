@@ -5,8 +5,8 @@ app.factory('Props', (WorldConstants) => ({
 
         this.default_material = this.default_material || Physijs.createMaterial(
             this.three_default_material,
-            0.8,
-            0.4
+            WorldConstants.DEFAULT_FRICTION,
+            WorldConstants.DEFAULT_RESTITUTION
         );
 
         this.default_sides = this.default_sides || _.chain().range(6).map(() => this.three_default_material).value();
@@ -67,7 +67,7 @@ app.factory('Props', (WorldConstants) => ({
         );
 
         top.position.z = -WorldConstants.GROUND_WIDTH/3;
-
+        top.receiveShadow = true;
         center.add(top);
 
         /* -------- Bottom ------- */
@@ -85,7 +85,7 @@ app.factory('Props', (WorldConstants) => ({
         );
 
         bottom.position.z = WorldConstants.GROUND_WIDTH/3;
-
+        bottom.receiveShadow = true;
         center.add(bottom);
 
         /* -------- Left ------- */
@@ -103,7 +103,7 @@ app.factory('Props', (WorldConstants) => ({
         );
 
         left.position.x = -WorldConstants.GROUND_WIDTH/3;
-
+        left.receiveShadow = true;
         center.add(left);
 
         /* -------- Right ------- */
@@ -121,7 +121,7 @@ app.factory('Props', (WorldConstants) => ({
         );
 
         right.position.x = WorldConstants.GROUND_WIDTH/3;
-
+        right.receiveShadow = true;
         center.add(right);
 
         /* -------- Corners ------- */
@@ -140,10 +140,12 @@ app.factory('Props', (WorldConstants) => ({
 
             mesh.position.x = corner[0] * WorldConstants.GROUND_WIDTH / 3;
             mesh.position.z = corner[1] * WorldConstants.GROUND_LENGTH / 3;
+            mesh.receiveShadow = true;
             center.add(mesh);
         });
 
         center.position.y = 0.5;
+        center.receiveShadow = true;
 
         return center;
     },
@@ -151,11 +153,12 @@ app.factory('Props', (WorldConstants) => ({
         let target_geo = new THREE.CylinderGeometry(WorldConstants.TARGET_RADIUS, WorldConstants.TARGET_RADIUS, WorldConstants.TARGET_HEIGHT, 32);
         let target_mat = new THREE.MeshLambertMaterial( {color: 0xea6173} );
         let cylinders = _.chain().range(4).map((_, i) => {
-            let cylinder = new THREE.Mesh( target_geo, target_mat );
+            let cylinder = new THREE.Mesh( target_geo, target_mat);
             let axis = i < 2 ? 'x' : 'z';
             let direction = i % 2 === 0 ? -1 : 1;
 
             cylinder.position[axis] = direction * WorldConstants.GROUND_WIDTH / 2.45;
+            cylinder.receiveShadow = true;
 
             return cylinder;
         }).value();
@@ -178,6 +181,7 @@ app.factory('Props', (WorldConstants) => ({
 
         toolset.position.x = WorldConstants.GROUND_WIDTH;
         toolset.position.y = WorldConstants.WALL_HEIGHT;
+        toolset.receiveShadow = true;
 
         return toolset;
     },
@@ -197,6 +201,7 @@ app.factory('Props', (WorldConstants) => ({
 
         skills.position.x = -WorldConstants.GROUND_WIDTH;
         skills.position.y = WorldConstants.WALL_HEIGHT;
+        skills.receiveShadow = true;
 
         return skills;
     },
@@ -216,6 +221,7 @@ app.factory('Props', (WorldConstants) => ({
 
         exp.position.z = WorldConstants.GROUND_WIDTH;
         exp.position.y = WorldConstants.WALL_HEIGHT;
+        exp.receiveShadow = true;
 
         return exp;
     },
@@ -235,6 +241,7 @@ app.factory('Props', (WorldConstants) => ({
 
         edu.position.z = -WorldConstants.GROUND_WIDTH;
         edu.position.y = WorldConstants.WALL_HEIGHT;
+        edu.receiveShadow = true;
 
         return edu;
     },
