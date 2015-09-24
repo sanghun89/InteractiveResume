@@ -25,7 +25,6 @@ app.factory('WorldConstants', function() {
         WALL_COLOR : 0xFACB47, //0xA0D36E,
         GROUND_COLOR_ALT: 0x865371,
         SKY_COLOR: 0xAAD1D8,
-        BALL_COLOR : 0xFA6900,
         AMBIENT_COLOR: 0x4f4f4f,
         LIGHT_DIR_X: 10,
         LIGHT_DIR_Y: 20,

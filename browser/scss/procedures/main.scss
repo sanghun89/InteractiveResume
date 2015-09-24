@@ -1,0 +1,48 @@
+.step {
+  width: 100%;
+  height: 100vh;
+  background: $light-color;
+  color: $dark-color;
+  text-align: center;
+  padding: 50px;
+  @include clearfix();
+
+  @media #{$touch-screen} {
+    padding: 15px;
+  }
+
+  .step-button {
+    display: inline-block;
+    width: $step-button-size;
+    height: $step-button-size;
+    border: 2px solid $dark-color;
+    background: transparent;
+    border-radius: 50%;
+    text-align: center;
+    margin: 0 1em;
+    cursor: pointer;
+
+    &.none-button {
+      cursor: default;
+      border-radius: 5%;
+    }
+
+    @include forceHardware();
+    @include transition();
+
+    i.icon {
+      display: block;
+      font-size: 3.5em;
+    }
+
+    span.label-icon {
+      display: inline-block;
+      margin-top: 8px;
+    }
+
+    &:hover:not(.none-button) {
+      background: $dark-color;
+      color: $light-color;
+    }
+  }
+}

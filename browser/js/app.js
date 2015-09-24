@@ -11,11 +11,3 @@ app.config(($urlRouterProvider, $locationProvider) => {
 app.constant('APP_VARS', {
     MOBILE_WIDTH : 786
 });
-
-app.run(($window, APP_VARS, $state)=> {
-    if ($window.innerWidth < APP_VARS) {
-        $state.go('root.mobile');
-    } else {
-        $state.go('root.screen');
-    }
-});

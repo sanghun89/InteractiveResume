@@ -1,0 +1,19 @@
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 9999;
+  background: $dark-color;
+
+  .loader {
+    font-size: 3em;
+  }
+
+  .loading-content {
+    margin-top: 1em;
+    color: $light-color;
+    text-align: center;
+  }
+}
