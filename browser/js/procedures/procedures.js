@@ -5,12 +5,15 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('ProcedureController', ($scope) => {
+app.controller('ProcedureController', ($scope, $state) => {
     $scope.keyboardStep = false;
     $scope.mobileStep = false;
 
     $scope.goToKeyBoard = function() {
         $scope.keyboardStep = !$scope.keyboardStep;
+        $state.go('root.screen', {
+            type: 'keyboard'
+        });
     };
 
     $scope.goToMobile = function() {
@@ -19,6 +22,6 @@ app.controller('ProcedureController', ($scope) => {
 
     $scope.goBack = function() {
         $scope.keyboardStep = false;
-        $scope.goToMobile = false;
+        $scope.mobileStep = false;
     };
 });

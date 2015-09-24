@@ -151,7 +151,7 @@ app.factory('Props', (WorldConstants) => ({
     },
     _makeTargets() {
         let target_geo = new THREE.CylinderGeometry(WorldConstants.TARGET_RADIUS, WorldConstants.TARGET_RADIUS, WorldConstants.TARGET_HEIGHT, 32);
-        let target_mat = new THREE.MeshLambertMaterial( {color: 0xea6173} );
+        let target_mat = new THREE.MeshLambertMaterial( {color: WorldConstants.TARGET_COLOR} );
         let cylinders = _.chain().range(4).map((_, i) => {
             let cylinder = new THREE.Mesh( target_geo, target_mat);
             let axis = i < 2 ? 'x' : 'z';

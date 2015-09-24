@@ -20,6 +20,7 @@ app.factory('WorldConstants', function() {
         CAMERA_GAP: 90,
         CAMERA_OFFSET_Z: 10,
         CAMERA_FREEZE_GAP: 10,
+        TARGET_COLOR: 0xEA6173,
         GROUND_COLOR: 0xE0EDE1,
         BACKGROUND_COLOR: 0xBFBFBF,
         WALL_COLOR : 0xFACB47, //0xA0D36E,

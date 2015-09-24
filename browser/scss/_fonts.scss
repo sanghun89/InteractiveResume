@@ -51,12 +51,13 @@
   content: "\e605";
 }
 
-
 @keyframes anim-rotate {
   0% {
+    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   100% {
+    -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
@@ -66,6 +67,7 @@
   height: 1em;
   line-height: 1;
   margin: .5em;
+  -webkit-animation: anim-rotate 2s infinite linear;
   animation: anim-rotate 2s infinite linear;
   color: #fff;
   text-shadow: 0 0 .25em rgba(255,255,255, .3);

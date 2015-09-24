@@ -91,9 +91,5 @@ app.factory('Scene', (WorldConstants, Renderer, Planes, Camera, Lights, Props, B
         animate();
 
         BallActions.initActions();
-
-        THREE.DefaultLoadingManager.onProgress = function ( item, loaded, total ) {
-            console.log( item, loaded, total );
-        };
     }
 }));
