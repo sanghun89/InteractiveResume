@@ -18,10 +18,17 @@
             </three-center>
         </a>
 
-        <a class="step-button" ng-click="start(type)">
+        <a ng-if="keyboard" class="step-button" ng-click="start(type)">
             <three-center>
                 <i class="icon icon-grin"></i>
                 <span class="label-icon">Start</span>
+            </three-center>
+        </a>
+
+        <a ng-if="phone" class="step-button none-button">
+            <three-center>
+                <i class="icon icon-grin"></i>
+                <span class="label-icon">Press Start<br>On Your Phone</span>
             </three-center>
         </a>
     </step>
