@@ -22,7 +22,7 @@ app.factory('RoomService', ($http, $q, $location) => {
 
             var deferred = $q.defer();
 
-            socket = io(`${$location.protocol()}://${location.host}/${roomID}`);
+            socket = io(`${$location.protocol()}://${location.host}/${roomID.toUpperCase()}`);
 
             if (client) {
                 socket.emit('connect-as-client');
@@ -38,7 +38,7 @@ app.factory('RoomService', ($http, $q, $location) => {
             return deferred.promise;
         },
         makeQRCode(roomID) {
-            let url = `${$location.protocol()}://${location.host}?connect=${roomID}`;
+            let url = `${$location.protocol()}://${location.host}/${roomID}`;
 
             url = encodeURIComponent(url);
 

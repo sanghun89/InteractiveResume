@@ -1,8 +1,10 @@
-app.factory('Scene', (WorldConstants, Renderer, Planes, Camera, Lights, Props, Ball, BallActions) => ({
+app.factory('Scene', (RoomService, WorldConstants, Renderer, Planes, Camera, Lights, Props, Ball, BallActions) => ({
     initScene(element) {
         let renderer, scene, gravityVector, camera, lights, planes, controls, props, ball_pieces;
         //renderer, scene, camera, cameraControls, domElement, gravityVector, controls;
         //var clock = new THREE.Clock();
+
+        this.paused = true;
 
         renderer = Renderer.makeRenderer(element);
         scene = new Physijs.Scene;
@@ -66,6 +68,7 @@ app.factory('Scene', (WorldConstants, Renderer, Planes, Camera, Lights, Props, B
             renderer.render( scene, camera );
         }
 
+        let self = this;
         function animate() {
             if (controls) {
                 controls.update();
@@ -73,9 +76,11 @@ app.factory('Scene', (WorldConstants, Renderer, Planes, Camera, Lights, Props, B
             // Getting threejs's inner clock
             //var delta = clock.getDelta();
 
-            BallActions.update();
-            scene.simulate();
-            render();
+            if (!self.paused) {
+                BallActions.update();
+                scene.simulate();
+                render();
+            }
 
             requestAnimationFrame(animate);
         }
@@ -86,10 +91,15 @@ app.factory('Scene', (WorldConstants, Renderer, Planes, Camera, Lights, Props, B
 
         BallActions.scene = scene;
         BallActions.camera = camera;
+        BallActions.init();
 
         render();
         animate();
-
-        BallActions.initActions();
+    },
+    pause() {
+        this.paused = true;
+    },
+    unpause() {
+        this.paused = false;
     }
 }));

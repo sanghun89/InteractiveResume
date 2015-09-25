@@ -15,7 +15,11 @@ module.exports = function(nsp, room) {
             });
 
             socket.on('disconnect', function () {
-                room.remove();
+                room.remove().then(function() {
+                   if (controller_client) {
+                       controller_client.emit('room-disconnected');
+                   }
+                });
             });
         });
 
@@ -38,12 +42,23 @@ module.exports = function(nsp, room) {
 
             socket.on('disconnect', function () {
                 room.control_socket = null;
-                room.save();
+                room.save().then(function(){
+                    if (room_client) {
+                        socket.emit('room-disconnected');
+                        if (socket.disconnect)
+                            socket.disconnect();
+
+                        if (socket.destroy)
+                            socket.destroy();
+                        room_client.emit('controller-disconnected');
+                    }
+                });
             });
         });
 
         socket.on('message-to-room', function(data) {
             data.body = data.body || null;
+
             if (room_client) {
                 room_client.emit(data.message, data.body);
             }
@@ -52,8 +67,6 @@ module.exports = function(nsp, room) {
         socket.on('message-to-client', function(data) {
             data.body = data.body || null;
             if (controller_client) {
-                console.log('here');
-                console.log(data);
                 controller_client.emit(data.message, data.body);
             }
         });
