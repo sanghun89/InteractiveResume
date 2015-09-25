@@ -12,18 +12,18 @@
 
 
 <!-- Mobile Indication -->
-<step ng-if="connected">
+<step>
     <arrows>
         <three-center>
-            <button>
-                Pause/Start
+            <button ng-click="toggleAction()">
+                {{action}}
             </button>
-            <button>
+            <a class="button" href="tel:+16787178064">
                 Contact via Phone
-            </button>
-            <button>
+            </a>
+            <a class="button" href="mailto:sanghun89@gmail.com">
                 Contact via Email
-            </button>
+            </a>
         </three-center>
     </arrows>
 </step>

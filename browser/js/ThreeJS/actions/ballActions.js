@@ -1,7 +1,7 @@
 (function() {
     let xGap = 0, zGap = 0, velocity, speed_exceeded = false;
 
-    app.factory('BallActions', (WorldConstants) =>({
+    app.factory('BallActions', (WorldConstants, RoomService) =>({
         ball: null,
         ball_light: null,
         scene: null,
@@ -27,7 +27,7 @@
 
             return gap;
         },
-        initActions() {
+        initKeyBoardActions() {
             let keyEventHandler = (event) => {
                 let directionalsPressed = true;
                 if (!event.repeat) {
@@ -55,6 +55,22 @@
                 }
             };
 
+            window.addEventListener( 'keydown', keyEventHandler, false );
+            window.addEventListener( 'keyup', keyEventHandler, false );
+        },
+        initPhoneActions() {
+            let socket = RoomService.getSocket();
+
+            if (socket) {
+                socket.on('orient-change', (data) => {
+                    this.gravityVector.x = data.vector.x;
+                    this.gravityVector.z = data.vector.z;
+
+                    this.scene.setGravity(this.gravityVector);
+                });
+            }
+        },
+        init() {
             this.targetCollideHandler = () => {
                 if (velocity) {
                     this.impulse.x = velocity.x;
@@ -67,9 +83,6 @@
             // threshhold setting for things moving too fast
             this.ball.setCcdMotionThreshold(1);
             this.ball.setCcdSweptSphereRadius(0.2);
-
-            window.addEventListener( 'keydown', keyEventHandler, false );
-            window.addEventListener( 'keyup', keyEventHandler, false );
         },
         update() {
             // Update ball lighting position

@@ -4,9 +4,12 @@
         <h1>Sam's Interactive Resume</h1>
     </header>
 
-    <step ng-if="phone">
-        <h2>3. Phone Instructions</h2>
-        <p>Tilt to the direction labeled on edges of your phone to move the ball on the screen accordingly.<br>Roll over to the red circles to boost the ball up to different sections.</p>
+    <step>
+        <h2 ng-if="phone">3. Phone Instructions</h2>
+        <p ng-if="phone">Tilt to the direction labeled on edges of your phone to move the ball on the screen accordingly.<br>Roll over to the red circles to boost the ball up to different sections.</p>
+
+        <h2 ng-if="keyboard">2. Keyboard Instructions</h2>
+        <p ng-if="keyboard">Use the arrow keys to move up, down, right, and left.<br>Roll over to the red circles to boost the ball up to different sections.</p>
 
         <a class="step-button" ng-click="goBack()">
             <three-center>
@@ -15,27 +18,7 @@
             </three-center>
         </a>
 
-        <a class="step-button" ng-click="start()">
-            <three-center>
-                <i class="icon icon-grin"></i>
-                <span class="label-icon">Start</span>
-            </three-center>
-        </a>
-    </step>
-
-    <!-- Keyboard Step -->
-    <step ng-if="keyboard">
-        <h2>2. Keyboard Instructions</h2>
-        <p>Use the arrow keys to move up, down, right, and left.<br>Roll over to the red circles to boost the ball up to different sections.</p>
-
-        <a class="step-button" ng-click="goBack()">
-            <three-center>
-                <i class="icon icon-undo"></i>
-                <span class="label-icon">Back</span>
-            </three-center>
-        </a>
-
-        <a class="step-button" ng-click="start()">
+        <a class="step-button" ng-click="start(type)">
             <three-center>
                 <i class="icon icon-grin"></i>
                 <span class="label-icon">Start</span>
