@@ -67,6 +67,11 @@ app.controller('MobileController', ($scope, $timeout, RoomService, $stateParams,
                     $scope.err = msg;
                     $scope.$apply();
                 });
+
+                socket.on('pause-state', () => {
+                    $scope.action = 'Start';
+                    $scope.$apply();
+                });
             }
         }).catch((err)=>{
             console.log(err);
