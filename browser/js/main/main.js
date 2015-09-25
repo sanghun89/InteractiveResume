@@ -12,7 +12,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('MainController', ($window, APP_VARS, $state, $scope, BallActions, $stateParams) => {
+app.controller('MainController', ($window, APP_VARS, $state, $scope, BallActions, $stateParams, Scene) => {
     $scope.displayCanvas = false;
     $scope.canvasExist = false;
     $scope.goBack = function() {
@@ -28,6 +28,7 @@ app.controller('MainController', ($window, APP_VARS, $state, $scope, BallActions
                 BallActions.initPhoneActions();
             } else {
                 BallActions.initKeyBoardActions();
+                Scene.unpause()
             }
 
             initialized = true;
