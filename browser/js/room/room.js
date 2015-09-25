@@ -1,4 +1,4 @@
-app.factory('RoomService', ($http, $q, $location) => {
+app.factory('RoomService', ($http, $q, $location, $timeout) => {
     let socket = null,
         room = null;
 
@@ -20,9 +20,11 @@ app.factory('RoomService', ($http, $q, $location) => {
                 return $q.when(room);
             }
 
-            var deferred = $q.defer();
+            let deferred = $q.defer();
 
-            socket = io(`${$location.protocol()}://${location.host}/${roomID.toUpperCase()}`);
+            socket = io(`${$location.protocol()}://${location.host}/${roomID.toUpperCase()}`, {
+                forceNew : true
+            });
 
             if (client) {
                 socket.emit('connect-as-client');

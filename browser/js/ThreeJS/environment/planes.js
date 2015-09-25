@@ -51,9 +51,9 @@ app.factory('Planes', (WorldConstants) => ({
             WorldConstants.DEFAULT_RESTITUTION
         );
 
-        let horizontal_geo = new THREE.BoxGeometry(WorldConstants.GROUND_WIDTH, WorldConstants.WALL_HEIGHT * 2, 1);
-        let vertical_geo = new THREE.BoxGeometry(1, WorldConstants.WALL_HEIGHT * 2, WorldConstants.GROUND_LENGTH);
-        let column_geo = new THREE.BoxGeometry(WorldConstants.GROUND_WIDTH, WorldConstants.WALL_HEIGHT * 2, WorldConstants.GROUND_LENGTH);
+        let horizontal_geo = new THREE.BoxGeometry(WorldConstants.GROUND_WIDTH, WorldConstants.WALL_HEIGHT * 3, 1);
+        let vertical_geo = new THREE.BoxGeometry(1, WorldConstants.WALL_HEIGHT * 3, WorldConstants.GROUND_LENGTH);
+        let column_geo = new THREE.BoxGeometry(WorldConstants.GROUND_WIDTH, WorldConstants.WALL_HEIGHT * 3, WorldConstants.GROUND_LENGTH);
 
         let walls = {
             x : [1, -1],

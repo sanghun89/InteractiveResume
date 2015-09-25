@@ -1,7 +1,7 @@
 (function() {
     let xGap = 0, zGap = 0, velocity, speed_exceeded = false;
 
-    app.factory('BallActions', (WorldConstants, RoomService) =>({
+    app.factory('BallActions', (APP_VARS, WorldConstants, RoomService) =>({
         ball: null,
         ball_light: null,
         scene: null,
@@ -68,6 +68,47 @@
 
                     this.scene.setGravity(this.gravityVector);
                 });
+            }
+        },
+        initAccelerometer(socket, scope) {
+            let oldBeta, oldGamma,
+                vector = {
+                    x:0,
+                    y:WorldConstants.GRAVITY_Y,
+                    z:0
+                };
+
+            let newBeta, newGamma, changed = false;
+            oldBeta = oldGamma = newBeta = newGamma = 0;
+            function orientHandler(event) {
+                if (scope.action === 'Pause') {
+                    newBeta = Math.round(event.beta);
+                    newGamma = Math.round(event.gamma);
+
+                    changed = !_.inRange(oldBeta, newBeta - APP_VARS.ORIENTATION_OFFSET, newBeta + APP_VARS.ORIENTATION_OFFSET) ||
+                        !_.inRange(oldGamma, newGamma - APP_VARS.ORIENTATION_OFFSET, newGamma + APP_VARS.ORIENTATION_OFFSET);
+
+                    if (changed) {
+                        vector.x = Math.round(newGamma/90 * WorldConstants.KEY_SPEED);
+                        vector.z = Math.round(newBeta/90 * WorldConstants.KEY_SPEED);
+                        oldGamma = newGamma;
+                        oldBeta = newBeta;
+
+                        if (socket) {
+                            socket.emit('message-to-room', {
+                                message: 'orient-change',
+                                body: {
+                                    vector
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+
+            if (window.DeviceOrientationEvent) {
+                // Listen for the event and handle DeviceOrientationEvent object
+                window.addEventListener('deviceorientation', orientHandler, false);
             }
         },
         init() {

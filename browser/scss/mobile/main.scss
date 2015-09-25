@@ -22,10 +22,6 @@ form {
 
   button, .button {
     margin-top: 8px;
-
-    &:visited, &:active {
-        color: #FFF;
-    }
   }
 }
 
@@ -103,6 +99,10 @@ form {
     button, .button {
       margin: 8px auto;
       width: 80%;
+
+      &:hover, &:visited, &:active {
+        color: #FFF;
+      }
     }
   }
 }

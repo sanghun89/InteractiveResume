@@ -1,4 +1,4 @@
-app.directive('roomIdentifier', (RoomService, $state) => ({
+app.directive('roomIdentifier', (RoomService, $state, $rootScope) => ({
     restrict: 'E',
     templateUrl: 'js/room-identifier/room-identifier.html',
     replace: true,
@@ -22,9 +22,16 @@ app.directive('roomIdentifier', (RoomService, $state) => ({
 
             if (socket) {
                 socket.on('start-screen', () => {
-                    $state.go('root.screen', {
-                        type: 'phone'
-                    });
+                    if(!$state.includes('root.screen')) {
+                        $state.go('root.screen', {
+                            type: 'phone'
+                        });
+                    } else {
+                        $rootScope.$broadcast('unpause');
+                        socket.emit('message-to-client', {
+                            message: 'loaded'
+                        });
+                    }
                 });
             }
 
