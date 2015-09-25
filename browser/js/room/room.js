@@ -1,4 +1,4 @@
-app.factory('RoomService', ($http, $q, $location, $timeout) => {
+app.factory('RoomService', ($http, $q, $location) => {
     let socket = null,
         room = null;
 

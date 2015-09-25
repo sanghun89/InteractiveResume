@@ -89,8 +89,8 @@
                         !_.inRange(oldGamma, newGamma - APP_VARS.ORIENTATION_OFFSET, newGamma + APP_VARS.ORIENTATION_OFFSET);
 
                     if (changed) {
-                        vector.x = Math.round(newGamma/90 * WorldConstants.KEY_SPEED);
-                        vector.z = Math.round(newBeta/90 * WorldConstants.KEY_SPEED);
+                        vector.x = Math.round(newGamma/90 * WorldConstants.ACC_SPEED);
+                        vector.z = Math.round(newBeta/90 * WorldConstants.ACC_SPEED);
                         oldGamma = newGamma;
                         oldBeta = newBeta;
 

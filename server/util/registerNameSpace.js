@@ -2,6 +2,10 @@ module.exports = function(nsp, room) {
     let room_client, controller_client;
 
     nsp.on('connection', function(socket) {
+        socket.on('connect', function() {
+            console.log(socket.id);
+        });
+
         socket.on('connect-to-room', function() {
             if (!room) {
                 socket.emit('connect-error', 'Room does not exist');

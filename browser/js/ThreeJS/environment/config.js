@@ -10,6 +10,7 @@ app.factory('WorldConstants', function() {
             z : [1, -1]
         },
         KEY_SPEED: 65,
+        ACC_SPEED: 130,
         TARGET_RADIUS: 2,
         TARGET_HEIGHT: 2.2,
         TARGET_IMPULSE: 100,
@@ -17,7 +18,7 @@ app.factory('WorldConstants', function() {
         BALL_WEIGHT: 3,
         BALL_SPEED_LIMIT: 25,
         ORIENTATION_OFFSET : 3,
-        CAMERA_GAP: 90,
+        CAMERA_GAP: 110,
         CAMERA_OFFSET_Z: 10,
         CAMERA_FREEZE_GAP: 10,
         TARGET_COLOR: 0xEA6173,
