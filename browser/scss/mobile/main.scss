@@ -55,6 +55,7 @@ form {
       }
 
       span {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         line-height: 1.5em;
         display: table-cell;
         vertical-align: middle;
@@ -112,4 +113,20 @@ form {
   color: $red-color;
   font-size: 0.8em;
   margin-top: 8px;
+}
+
+.step {
+  &.portrait {
+    .arrows ul li span, .center-container {
+      -webkit-transform: rotate(-90deg);
+      transform: rotate(-90deg);
+    }
+  }
+
+  &.landscape_pos {
+    .arrows ul li span, .center-container {
+      -webkit-transform: rotate(180deg);
+      transform: rotate(180deg);
+    }
+  }
 }

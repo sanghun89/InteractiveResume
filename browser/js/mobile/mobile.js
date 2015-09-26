@@ -111,8 +111,9 @@ app.controller('MobileController', ($scope, $timeout, RoomService, $stateParams,
         }
     };
 
-    window.onblur = function() {
-        $scope.scenePause();
+    $scope.orientation = window.orientation;
+    window.addEventListener('orientationchange', () => {
+        $scope.orientation = window.orientation;
         $scope.$apply();
-    }
+    });
 });

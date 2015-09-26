@@ -46,7 +46,7 @@ module.exports = function(nsp, room) {
                 if (room.room_socket && room.control_socket) {
                     nsp.emit('start-screen');
                 }
-                
+
                 return;
             }
 
@@ -103,7 +103,6 @@ module.exports = function(nsp, room) {
         });
 
         socket.on('message-to-client', function(data) {
-            console.log(data);
             data.body = data.body || null;
             if (controller_client) {
                 controller_client.emit(data.message, data.body);

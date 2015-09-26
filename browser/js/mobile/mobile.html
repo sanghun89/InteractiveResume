@@ -12,7 +12,11 @@
 
 
 <!-- Mobile Indication -->
-<step>
+<step ng-if="connected && !loading" ng-class="{
+    portrait:orientation == 0,
+    landscape_neg: orientation == -90,
+    landscape_pos: orientation == 90
+}">
     <arrows>
         <three-center>
             <button ng-click="toggleAction()">
