@@ -1,10 +1,14 @@
 app.factory('Ball', (WorldConstants, BallActions) => ({
     makeBall() {
         let ball_mat = new THREE.MeshPhongMaterial({});
-        ball_mat.map = THREE.ImageUtils.loadTexture('images/8ball.png');
-        ball_mat.map.minFilter = THREE.LinearFilter;
+        ball_mat.map = THREE.ImageUtils.loadTexture('images/pokeball_exploded.jpg');
         ball_mat.specular = new THREE.Color('white');
-        ball_mat.shininess = 5;
+        ball_mat.shininess = 2;
+
+        //ball_mat.map = THREE.ImageUtils.loadTexture('images/8ball.png');
+        //ball_mat.map.minFilter = THREE.LinearFilter;
+        //ball_mat.specular = new THREE.Color('white');
+        //ball_mat.shininess = 5;
 
         ball_mat = Physijs.createMaterial(
             ball_mat,
