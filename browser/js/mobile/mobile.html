@@ -1,5 +1,5 @@
 <!-- Room input -->
-<step ng-if="!connected && !loading">
+<step ng-if="!connected && !loading" class="mobile-side">
     <three-center>
         <form ng-submit="connectToRoom(roomID)">
             <label>Connect to Room ID</label>
@@ -12,7 +12,7 @@
 
 
 <!-- Mobile Indication -->
-<step ng-if="connected && !loading" ng-class="{
+<step ng-if="connected && !loading" class="mobile-side" ng-class="{
     portrait:orientation == 0,
     landscape_neg: orientation == -90,
     landscape_pos: orientation == 90

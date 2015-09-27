@@ -74,6 +74,18 @@ a, a:hover, a:active, a:visited {
   }
 }
 
+.mobile-side {
+  .center-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .center {
+      display: block;
+      width: 100%;
+    }
+  }
+}
+
 header {
   padding: 20px;
   text-align: center;
