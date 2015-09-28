@@ -1,4 +1,4 @@
-app.factory('Props', (WorldConstants) => ({
+app.factory('Props', (WorldConstants, BallActions) => ({
     init() {
         this.three_default_material = this.three_default_material || new THREE.MeshLambertMaterial({ color : WorldConstants.GROUND_COLOR});
         this.three_alt_material = this.three_alt_material || new THREE.MeshLambertMaterial({ color : WorldConstants.GROUND_COLOR_ALT});
@@ -32,10 +32,17 @@ app.factory('Props', (WorldConstants) => ({
         /* -------- Center ------- */
         let center_sides = this.cloneSides();
 
-        center_sides[2] = new THREE.MeshLambertMaterial({
-            map: THREE.ImageUtils.loadTexture('images/center-piece.png')
-        });
+        let textures = {
+            _default : THREE.ImageUtils.loadTexture('images/center-piece.png'),
+            _work : THREE.ImageUtils.loadTexture('images/center-piece-work.jpg'),
+            _toolsets : THREE.ImageUtils.loadTexture('images/center-piece-toolsets.jpg'),
+            _edu : THREE.ImageUtils.loadTexture('images/center-piece-edu.jpg'),
+            _skills : THREE.ImageUtils.loadTexture('images/center-piece-skills.jpg')
+        };
 
+        center_sides[2] = new THREE.MeshLambertMaterial({
+            map: textures._default
+        });
         center_sides[2].map.minFilter = THREE.LinearFilter;
 
         let center_mat = new THREE.MeshFaceMaterial(center_sides);
@@ -51,6 +58,9 @@ app.factory('Props', (WorldConstants) => ({
             center_geo,
             center_mat
         );
+
+        BallActions.centerMesh = center;
+        BallActions.centerTextures = textures;
 
         /* -------- Top ------- */
         let top_sides = this.cloneSides();

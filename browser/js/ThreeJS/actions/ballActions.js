@@ -12,6 +12,8 @@
         keys : { LEFT: 37, UP: 38, RIGHT: 39, BOTTOM: 40 },
         keySpeed: WorldConstants.KEY_SPEED,
         impulse: new THREE.Vector3(0,WorldConstants.TARGET_IMPULSE,0),
+        centerMesh: null,
+        centerTextures: null,
         doDistanceFormula() {
             return Math.sqrt(Math.pow((this.ball.position.x - this.camera.position.x), 2) + Math.pow((this.ball.position.z - (this.camera.position.z - WorldConstants.CAMERA_OFFSET_Z)), 2));
         },
@@ -50,7 +52,6 @@
 
                     if (directionalsPressed) {
                         this.scene.setGravity(this.gravityVector);
-                        console.log('linear velocity', this.ball.getLinearVelocity());
                     }
                 }
             };
@@ -112,13 +113,39 @@
             }
         },
         init() {
-            this.targetCollideHandler = () => {
+            this.toggleSwitch = false;
+            this.fadeToggleCenter = (mat) => {
+                this.centerMesh.material.materials[2].map = this.centerTextures[mat];
+                this.centerMesh.material.materials[2].map.minFilter = THREE.LinearFilter;
+                this.centerMesh.material.materials[2].needsUpdate = true;
+            };
+
+            this.targetCollideHandler = (x, z) => {
                 if (velocity) {
                     this.impulse.x = velocity.x;
                     this.impulse.z = velocity.z;
                 }
                 this.ball.setAngularVelocity(this.zeroVector);
                 this.ball.setLinearVelocity(this.impulse);
+
+                let new_mat = '';
+                if (x) {
+                    if (x < 0) {
+                        new_mat = '_skills';
+                    } else {
+                        new_mat = '_toolsets';
+                    }
+                }
+
+                if (z) {
+                    if (z < 0) {
+                        new_mat = '_edu';
+                    } else {
+                        new_mat = '_work';
+                    }
+                }
+                
+                this.fadeToggleCenter(new_mat);
             };
 
             // threshhold setting for things moving too fast
@@ -126,6 +153,7 @@
             this.ball.setCcdSweptSphereRadius(0.2);
         },
         update() {
+            // Fade Switch
             // Update ball lighting position
             this.ball_light.position.z = this.ball.position.z - WorldConstants.BALL_RADIUS * 3;
             this.ball_light.position.x = this.ball.position.x - WorldConstants.BALL_RADIUS;
@@ -150,13 +178,13 @@
             if (this.ball.position.y <= WorldConstants.BALL_RADIUS + 1) {
                 if (Math.abs(this.ball.position.x) <= WorldConstants.TARGET_RADIUS + 1) {
                     if (_.inRange(Math.abs(this.ball.position.z), (WorldConstants.GROUND_WIDTH/2.45 + WorldConstants.TARGET_RADIUS + 1), (WorldConstants.GROUND_WIDTH/2.45 - WorldConstants.TARGET_RADIUS))) {
-                        return this.targetCollideHandler();
+                        return this.targetCollideHandler(null, this.ball.position.z);
                     }
                 }
 
                 if (Math.abs(this.ball.position.z) <= WorldConstants.TARGET_RADIUS + 1) {
                     if (_.inRange(Math.abs(this.ball.position.x), (WorldConstants.GROUND_WIDTH / 2.45 + WorldConstants.TARGET_RADIUS + 1), (WorldConstants.GROUND_WIDTH / 2.45 - WorldConstants.TARGET_RADIUS))) {
-                        return this.targetCollideHandler();
+                        return this.targetCollideHandler(this.ball.position.x, null);
                     }
                 }
             }

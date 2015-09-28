@@ -2,6 +2,7 @@ app.factory('Ball', (WorldConstants, BallActions) => ({
     makeBall() {
         let ball_mat = new THREE.MeshPhongMaterial({});
         ball_mat.map = THREE.ImageUtils.loadTexture('images/pokeball_exploded.jpg');
+        ball_mat.map.minFilter = THREE.LinearFilter;
         ball_mat.specular = new THREE.Color('white');
         ball_mat.shininess = 2;
 
