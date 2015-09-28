@@ -11,7 +11,7 @@ app.factory('WorldConstants', function() {
         },
         KEY_SPEED: 65,
         ACC_SPEED: 130,
-        TARGET_RADIUS: 2,
+        TARGET_RADIUS: 3,
         TARGET_HEIGHT: 2.2,
         TARGET_IMPULSE: 100,
         BALL_RADIUS: 4,

@@ -157,7 +157,7 @@ app.factory('Props', (WorldConstants) => ({
             let axis = i < 2 ? 'x' : 'z';
             let direction = i % 2 === 0 ? -1 : 1;
 
-            cylinder.position[axis] = direction * WorldConstants.GROUND_WIDTH / 2.45;
+            cylinder.position[axis] = direction * WorldConstants.GROUND_WIDTH / 2.5;
             cylinder.receiveShadow = true;
 
             return cylinder;
