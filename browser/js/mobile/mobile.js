@@ -40,7 +40,7 @@ app.controller('MobileController', ($scope, $timeout, RoomService, $stateParams,
                     $scope.reset();
                     $scope.err = 'Connection Timed Out. Try again or refresh the desktop page';
                 }
-            }, 4000);
+            }, 15000);
 
             socket = RoomService.getSocket();
 
