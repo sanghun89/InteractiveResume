@@ -33,11 +33,11 @@ app.factory('Props', (WorldConstants, BallActions) => ({
         let center_sides = this.cloneSides();
 
         let textures = {
-            _default : THREE.ImageUtils.loadTexture('images/center-piece.png'),
-            _work : THREE.ImageUtils.loadTexture('images/center-piece-work.jpg'),
-            _toolsets : THREE.ImageUtils.loadTexture('images/center-piece-toolsets.jpg'),
-            _edu : THREE.ImageUtils.loadTexture('images/center-piece-edu.jpg'),
-            _skills : THREE.ImageUtils.loadTexture('images/center-piece-skills.jpg')
+            _default : THREE.ImageUtils.loadTexture('images/center-piece.png')
+            //_work : THREE.ImageUtils.loadTexture('images/center-piece-work.jpg'),
+            //_toolsets : THREE.ImageUtils.loadTexture('images/center-piece-toolsets.jpg'),
+            //_edu : THREE.ImageUtils.loadTexture('images/center-piece-edu.jpg'),
+            //_skills : THREE.ImageUtils.loadTexture('images/center-piece-skills.jpg')
         };
 
         center_sides[2] = new THREE.MeshLambertMaterial({
