@@ -13,12 +13,14 @@ app.directive('roomIdentifier', (RoomService, $state, $rootScope) => ({
 
         RoomService.getARoom().then((room) => {
             _.assign(scope.room, room);
-            return RoomService.connectToRoom(room._id);
+            return RoomService.connectToRoom(room._id, 'room_socket');
         }).then((room) => {
             _.assign(scope.room, room);
             scope.qr_code = RoomService.makeQRCode(room._id);
 
             let socket = RoomService.getSocket();
+
+            socket.emit("establish-room");
 
             if (socket) {
                 socket.on('start-screen', () => {

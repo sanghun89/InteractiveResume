@@ -120,32 +120,13 @@
                 this.centerMesh.material.materials[2].needsUpdate = true;
             };
 
-            this.targetCollideHandler = (x, z) => {
+            this.targetCollideHandler = () => {
                 if (velocity) {
                     this.impulse.x = velocity.x;
                     this.impulse.z = velocity.z;
                 }
                 this.ball.setAngularVelocity(this.zeroVector);
                 this.ball.setLinearVelocity(this.impulse);
-
-                //let new_mat = '';
-                //if (x) {
-                //    if (x < 0) {
-                //        new_mat = '_skills';
-                //    } else {
-                //        new_mat = '_toolsets';
-                //    }
-                //}
-                //
-                //if (z) {
-                //    if (z < 0) {
-                //        new_mat = '_edu';
-                //    } else {
-                //        new_mat = '_work';
-                //    }
-                //}
-
-                //this.fadeToggleCenter(new_mat);
             };
 
             // threshhold setting for things moving too fast

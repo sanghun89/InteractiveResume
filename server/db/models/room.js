@@ -61,4 +61,26 @@ schema.statics.generateRoom = function() {
     });
 };
 
+schema.statics.updateRoom = function(info) {
+    var Room = this;
+    return Room.findById(info.roomID)
+        .then(function(room) {
+            if (!room) {
+                throw new Error("Room does not exist");
+            } else {
+                if (info.socket_type === "control_socket") {
+                    if (room.control_socket) {
+                        throw new Error("Room is already occupied");
+                    }
+                }
+            }
+
+            room[info.socket_type] = info.socket_id;
+
+            return room.save();
+        });
+};
+
+
+
 mongoose.model('Room', schema);
