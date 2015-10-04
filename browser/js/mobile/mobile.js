@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('MobileController', ($scope, $timeout, RoomService, $stateParams, BallActions) => {
+app.controller('MobileController', ($scope, RoomService, $stateParams, BallActions) => {
     let socket;
     $scope.reset = function() {
         $scope.connected = false;
@@ -29,42 +29,18 @@ app.controller('MobileController', ($scope, $timeout, RoomService, $stateParams,
     };
 
     $scope.reset();
-
     $scope.connectToRoom = function(roomID) {
-        RoomService.connectToRoom(roomID, true).then((room) => {
-            $scope.room = room;
-            $scope.loading = true;
+        RoomService.checkRoom(roomID)
+        .then(() => {
+            return RoomService.connectToRoom(roomID, 'control_socket')
+            .then(function(room) {
+                socket = RoomService.getSocket();
+                socket.emit('establish-control');
 
-            let promise = $timeout(() => {
-                if ($scope.loading) {
-                    $scope.reset();
-                    $scope.err = 'Connection Timed Out. Try again or refresh the desktop page';
-                }
-            }, 15000);
-
-            socket = RoomService.getSocket();
-
-
-            BallActions.initAccelerometer(socket, $scope);
-
-            if (socket) {
                 socket.on('loaded', () => {
-                    console.log('herer');
                     $scope.loading = false;
                     $scope.connected = true;
-                    $timeout.cancel(promise);
-                    $scope.$apply();
-                });
-
-                socket.on('room-disconnected', () => {
-                    $scope.reset();
-                    $scope.$apply();
-                });
-
-                socket.on('connect-error', (msg) => {
-                    $scope.reset();
-                    $timeout.cancel(promise);
-                    $scope.err = msg;
+                    BallActions.initAccelerometer(socket, $scope);
                     $scope.$apply();
                 });
 
@@ -72,11 +48,30 @@ app.controller('MobileController', ($scope, $timeout, RoomService, $stateParams,
                     $scope.action = 'Start';
                     $scope.$apply();
                 });
-            }
-        }).catch((err)=>{
-            console.log(err);
+
+                socket.on('room-disconnected', () => {
+                    $scope.reset();
+                    $scope.err = "Room is disconnected";
+                    $scope.$apply();
+                });
+
+                socket.on('connect-error', (msg) => {
+                    $scope.reset();
+                    $scope.err = msg;
+                    $scope.$apply();
+                });
+
+                $scope.room = room;
+            });
+        }).catch(function(error) {
+            console.log(error);
+            $scope.err = error.data;
         });
     };
+
+    $scope.$on('socket-connected', () => {
+        $scope.action = 'Start';
+    });
 
     if ($stateParams.connect) {
         $scope.connectToRoom($stateParams.connect);
@@ -112,6 +107,7 @@ app.controller('MobileController', ($scope, $timeout, RoomService, $stateParams,
     };
 
     $scope.orientation = window.orientation;
+
     window.addEventListener('orientationchange', () => {
         $scope.orientation = window.orientation;
         $scope.$apply();
