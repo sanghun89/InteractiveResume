@@ -8,16 +8,25 @@
     <p>In order to view my resume, you have to choose a controller to navigate through the content.
         <br>
         You can choose your keyboard or your phone, but the latter is a cooler alternative &#128512;</p>
-    <a class="step-button" ng-click="goToMobile()">
-        <three-center>
-            <i class="icon icon-mobile"></i>
-            <span class="label-icon">Accelerometer<br>(Phone)</span>
-        </three-center>
-    </a>
+
     <a class="step-button" ng-click="goToKeyBoard()">
         <three-center>
             <i class="icon icon-keyboard"></i>
             <span class="label-icon">Keyboard</span>
+        </three-center>
+    </a>
+
+    <a class="step-button" ng-click="goToMobile()">
+        <three-center>
+            <i class="icon icon-mobile"></i>
+            <span class="label-icon">Phone</span>
+        </three-center>
+    </a>
+
+    <a class="step-button" href="/pdf-resume" target="_blank">
+        <three-center>
+            <i class="icon icon-mail"></i>
+            <span class="label-icon">View PDF</span>
         </three-center>
     </a>
 </step>

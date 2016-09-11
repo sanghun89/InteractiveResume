@@ -2,6 +2,7 @@
 var path = require('path');
 var express = require('express');
 var app = express();
+var fs = require('fs');
 module.exports = app;
 
 // Pass our express application pipeline into the configuration
@@ -11,6 +12,20 @@ require('./configure')(app);
 // Routes that will be accessed via AJAX should be prepended with
 // /api so they are isolated from our GET /* wildcard.
 app.use('/api', require('./routes'));
+
+app.get('/pdf-resume', function(req, res) {
+    var filename = 'resume.pdf';
+    var root = app.getValue('projectRoot');
+    var pdf_path = path.join(root, './pdf/fullstack-resume.pdf');
+    var stream = fs.createReadStream(pdf_path);
+
+    filename = encodeURIComponent(filename);
+
+    res.setHeader('Content-disposition', 'inline; filename="' + filename + '"');
+    res.setHeader('Content-type', 'application/pdf');
+
+    stream.pipe(res);
+});
 
 
 /*
