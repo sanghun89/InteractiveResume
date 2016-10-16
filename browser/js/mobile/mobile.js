@@ -10,6 +10,11 @@ app.config(function ($stateProvider) {
 
 app.controller('MobileController', ($scope, RoomService, $stateParams, BallActions) => {
     let socket;
+    const updateOrientation = () => {
+        $scope.orientation = window.orientation;
+        $scope.$apply();
+    };
+
     $scope.reset = function() {
         $scope.connected = false;
         $scope.loading = false;
@@ -25,7 +30,7 @@ app.controller('MobileController', ($scope, RoomService, $stateParams, BallActio
         }
         socket = null;
 
-        window.removeEventListener('deviceorientation');
+        window.removeEventListener('deviceorientation', updateOrientation);
     };
 
     $scope.reset();
@@ -108,8 +113,5 @@ app.controller('MobileController', ($scope, RoomService, $stateParams, BallActio
 
     $scope.orientation = window.orientation;
 
-    window.addEventListener('orientationchange', () => {
-        $scope.orientation = window.orientation;
-        $scope.$apply();
-    });
+    window.addEventListener('orientationchange', updateOrientation);
 });
