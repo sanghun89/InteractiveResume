@@ -54,7 +54,7 @@ app.factory('RoomService', ($http, $q, $location, $rootScope) => {
 
             url = encodeURIComponent(url);
 
-            return `http://api.qrserver.com/v1/create-qr-code/?data=${url}&size=100x100&bgcolor=E0EDE1&color=865371`;
+            return `https://api.qrserver.com/v1/create-qr-code/?data=${url}&size=100x100&bgcolor=E0EDE1&color=865371`;
         },
         getSocket() {
             return socket;
